@@ -9,9 +9,11 @@ public class Main {
 
     static NetworkTable netTable;
     static Robot keyBot;
+    static Tuner tuner;
 
     public static void main(String[] args) {
         netTable = NetworkTable.getTable("AutoPID");
+        tuner = new Tuner(netTable);
         try {
             keyBot = new Robot();
             waitForStart();
