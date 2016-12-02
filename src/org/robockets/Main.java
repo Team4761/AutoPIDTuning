@@ -11,12 +11,16 @@ public class Main {
     static Robot keyBot;
     static Tuner tuner;
 
+    static Thread tunerThread;
+
     public static void main(String[] args) {
         netTable = NetworkTable.getTable("AutoPID");
         tuner = new Tuner(netTable);
         try {
             keyBot = new Robot();
             waitForStart();
+            tunerThread = new Thread(tuner);
+            tunerThread.run();
             stop(); // For testing
         } catch (InterruptedException | AWTException e) {
             e.printStackTrace();

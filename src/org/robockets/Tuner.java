@@ -5,11 +5,13 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tuner {
+public class Tuner implements Runnable{
 
     private NetworkTable netTable;
 
     private ArrayList<Double> errors;
+
+    private double averageError;
 
     public Tuner(NetworkTable networkTable) {
         netTable = networkTable;
@@ -37,5 +39,10 @@ public class Tuner {
             return sum / list.size();
         }
         return sum;
+    }
+
+    @Override
+    public void run() {
+        tune();
     }
 }
