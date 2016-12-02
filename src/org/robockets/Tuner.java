@@ -3,6 +3,7 @@ package org.robockets;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tuner {
 
@@ -24,6 +25,17 @@ public class Tuner {
     }
 
     public static void tune() {
-        
+
+    }
+
+    private double calculateAverage(List<Double> list) {
+        double sum = 0;
+        if(!list.isEmpty()) {
+            for (Double item : list) {
+                sum += item;
+            }
+            return sum / list.size();
+        }
+        return sum;
     }
 }
