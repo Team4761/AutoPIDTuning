@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tuner implements Runnable{
+public class Tuner{
 
     private NetworkTable netTable;
 
@@ -39,10 +39,5 @@ public class Tuner implements Runnable{
             return sum / list.size();
         }
         return sum;
-    }
-
-    @Override
-    public void run() {
-        tune();
     }
 }

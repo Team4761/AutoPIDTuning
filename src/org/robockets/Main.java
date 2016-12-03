@@ -10,17 +10,21 @@ public class Main {
     static NetworkTable netTable;
     static Robot keyBot;
     static Tuner tuner;
+    static Updater updater;
 
-    static Thread tunerThread;
+    static Thread updaterThread;
+
 
     public static void main(String[] args) {
         netTable = NetworkTable.getTable("AutoPID");
         tuner = new Tuner(netTable);
+        updater = new Updater();
         try {
             keyBot = new Robot();
             waitForStart();
-            tunerThread = new Thread(tuner);
-            tunerThread.run();
+            updaterThread = new Thread(updater);
+            updaterThread.run();
+            tuner.tune();
             stop(); // For testing
         } catch (InterruptedException | AWTException e) {
             e.printStackTrace();
