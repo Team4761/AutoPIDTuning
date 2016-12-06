@@ -5,15 +5,23 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tuner{
+class Tuner{
 
     private NetworkTable netTable;
 
-    private ArrayList<Double> errors;
+    static ArrayList<Double> errors;
 
     private double averageError;
 
-    public Tuner(NetworkTable networkTable) {
+    private double setpoint;
+
+    private double allowedError;
+
+    private double pChange;
+    private double iChange;
+    private double dChange;
+
+    Tuner(NetworkTable networkTable) {
         netTable = networkTable;
 
         // Clears existing values and sets up
@@ -22,12 +30,31 @@ public class Tuner{
         netTable.putNumber("D", 0);
         netTable.putNumber("Error", 0);
         netTable.putBoolean("Go", false);
+        netTable.putNumber("Setpoint", 0);
+
+        allowedError = netTable.getNumber("AllowedError", 5);
+
+        pChange = netTable.getNumber("PChange", 0.01);
+        pChange = netTable.getNumber("IChange", 0.001);
+        pChange = netTable.getNumber("DChange", 0.0001);
 
         errors = new ArrayList<>();
     }
 
-    public static void tune() {
+    void tune() {
+        setpoint = netTable.getNumber("Setpoint", 0);
+        while (true) {
+            averageError = calculateAverage(errors);
 
+            // Check if the average error is between the setpoint - 1 and the setpoint + 1
+            if (averageError >= setpoint - allowedError && averageError <= setpoint + allowedError) {
+                // I
+                
+            } else {
+                // P
+                netTable.putNumber("P", netTable.getNumber("P", 0)+pChange); // Add pChange to the current P value
+            }
+        }
     }
 
     private double calculateAverage(List<Double> list) {

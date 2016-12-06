@@ -7,18 +7,18 @@ import java.awt.event.KeyEvent;
 
 public class Main {
 
-    static NetworkTable netTable;
-    static Robot keyBot;
-    static Tuner tuner;
-    static Updater updater;
+    private static NetworkTable netTable;
+    private static Robot keyBot;
+    private static Tuner tuner;
+    private static Updater updater;
 
-    static Thread updaterThread;
+    private static Thread updaterThread;
 
 
     public static void main(String[] args) {
         netTable = NetworkTable.getTable("AutoPID");
         tuner = new Tuner(netTable);
-        updater = new Updater();
+        updater = new Updater(netTable);
         try {
             keyBot = new Robot();
             waitForStart();
@@ -31,7 +31,7 @@ public class Main {
         }
     }
 
-    public static void waitForStart() throws InterruptedException{
+    private static void waitForStart() throws InterruptedException{
         while (netTable.getBoolean("IsStarted", false)) {
             System.out.println("Waiting...");
             Thread.sleep(100);
@@ -41,11 +41,11 @@ public class Main {
         System.out.println("Starting...");
     }
 
-    public static void stop() throws AWTException, InterruptedException{
+    static void stop() throws AWTException, InterruptedException{
         stop(0, false);
     }
 
-    public static void stop(double seconds, boolean emergency) throws AWTException, InterruptedException{
+    static void stop(double seconds, boolean emergency) throws AWTException, InterruptedException{
         Thread.sleep((long)seconds*100);
         for (int i=0; i<5;i++) {
             if (emergency) {
