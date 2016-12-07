@@ -23,8 +23,8 @@ public class Main {
             keyBot = new Robot();
             waitForStart();
             updaterThread = new Thread(updater);
-            updaterThread.run();
             tuner.tune();
+            updaterThread.run();
             stop(); // For testing
         } catch (InterruptedException | AWTException e) {
             e.printStackTrace();

@@ -12,7 +12,9 @@ class Updater implements Runnable{
 
     @Override
     public void run() {
-        Tuner.errors.add(table.getNumber("Error", 0));
+        if (Tuner.getError) {
+            Tuner.errors.add(table.getNumber("Error", 0));
+        }
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {
