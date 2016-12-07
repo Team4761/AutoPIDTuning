@@ -74,30 +74,5 @@ class Tuner{
 
         getError = true;
 
-        
-
-        while (true) {
-            averageError = calculateAverage(errors);
-
-            // Check if the average error is between the setpoint - 1 and the setpoint + 1
-            if (averageError >= setpoint - allowedError && averageError <= setpoint + allowedError) {
-                // I
-                
-            } else {
-                // P
-                netTable.putNumber("P", netTable.getNumber("P", 0)+pChange); // Add pChange to the current P value
-            }
-        }
-    }
-
-    private double calculateAverage(List<Double> list) {
-        double sum = 0;
-        if(!list.isEmpty()) {
-            for (Double item : list) {
-                sum += item;
-            }
-            return sum / list.size();
-        }
-        return sum;
     }
 }
