@@ -20,6 +20,8 @@ class Tuner{
 
     static int timePassed;
 
+    static double dangerZone;
+
     Tuner(NetworkTable networkTable) {
         netTable = networkTable;
 
@@ -35,6 +37,8 @@ class Tuner{
 
         count = false;
         timePassed = 0;
+
+        dangerZone = 360;
 
         errors = new ArrayList<>();
     }
