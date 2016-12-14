@@ -32,6 +32,7 @@ class Tuner{
         netTable.putNumber("Error", 0);
         netTable.putBoolean("Go", false);
         netTable.putNumber("Setpoint", 90); // Setpoint should be changed on the robot based on how much it moves after each cycle in order to reset it
+        netTable.putBoolean("Reset", false);
 
         getError = false;
 
@@ -62,12 +63,13 @@ class Tuner{
                 errors.clear();
             }
             netTable.putBoolean("Go", false);
-            // TODO: Reset setpoint/location
+
+            netTable.putBoolean("Reset", true);
         }
 
         // Get the Tu number
 
-        // TODO: Reset setpoint/location
+        netTable.putBoolean("Reset", true);
 
         getError = true;
 
